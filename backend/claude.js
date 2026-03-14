@@ -18,3 +18,5 @@ async function callClaude(prompt) {
     throw err
   }
 }
+
+module.exports = callClaude  //

@@ -29,6 +29,37 @@ app.post('/api/expand', async (req, res) => {
     }
 })
 
+app.post('/api/challenge', async (req, res) => {
+    const { text } = req.body
+    try {
+        const result = await callClaude(`You are a skeptical investor. Read this pitch and respond with 5 tough questions that challenge its weakest points: ${text}`)
+        res.json({ result })
+    } catch (err) {
+        res.status(500).json({ error: 'Claude request failed' })
+    }
+})
+
+app.post('/api/shorten', async (req, res) => {
+    const { text } = req.body
+    try {
+        const result = await callClaude(`Condense this idea into a powerful 30 second elevator pitch. Maximum 3 sentences: ${text}`)
+        res.json({ result })
+    } catch (err) {
+        res.status(500).json({ error: 'Claude request failed' })
+    }
+})
+
+app.post('/api/score', async (req, res) => {
+    const { text } = req.body
+    try {
+        const result = await callClaude(`Score this pitch 1-10 in five areas: Problem clarity, Solution strength, Market size, Team credibility, Business model. Give a score and one sentence for each: ${text}`)
+        res.json({ result })
+    } catch (err) {
+        res.status(500).json({ error: 'Claude request failed' })
+    }
+})
+
+// ✅ app.listen always goes last
 const PORT = 3001
 app.listen(PORT, () => {
     console.log(`Backend is running on port ${PORT}`)
