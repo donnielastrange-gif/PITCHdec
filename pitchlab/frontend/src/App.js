@@ -1,23 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import RoleSwitcher from "./RoleSwitcher";
+import PitchForm from "./PitchForm";
+import PitchCard from "./PitchCard";
 
 function App() {
+  const [role, setRole] = useState("Creator");
+  const [pitches, setPitches] = useState([]);
+
+  function handleSubmit(newPitch) {
+    setPitches([...pitches, newPitch]);
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <h1>PITCHdec</h1>
+      <RoleSwitcher role={role} setRole={setRole} />
+      {role === "Creator" && <PitchForm onSubmit={handleSubmit} />}
+      {pitches.map((pitch, index) => (
+        <PitchCard
+          key={index}
+          title={pitch.title}
+          description={pitch.description}
+          category={pitch.category}
+          visibility={pitch.visibility}
+        />
+      ))}
     </div>
   );
 }
