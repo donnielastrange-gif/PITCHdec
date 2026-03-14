@@ -14,7 +14,7 @@ app.get('/api/ideas', (req, res) => {
 app.post('/api/ideas', (req, res) => {
   const newIdea = req.body
   ideas.push(newIdea)
-  res.json({ message: 'Idea saved!', idea: newIdea })
+  res.json({newIdea})
 })
 
 const PORT = 3001
